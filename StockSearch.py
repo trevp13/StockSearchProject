@@ -22,8 +22,7 @@ FiveYear=str(date(Today.year-5, Today.month, Today.day))
 SevenYear=str(date(Today.year-7, Today.month, Today.day))
 TenYear=str(date(Today.year-10, Today.month, Today.day))
 
-#EDIT THE NUMBER OF DATES TO GO BACK!
-SpecificDate='2008-1-1'
+#CHOOSE FROM ONE OF THE ABOVE # OF YEARS TO GO BACK OR ENTER A SPECIFIC DATE WITH FORMAT YYYY-MM-DD
 StartDate=FiveYear
 
 #Choose from month / year / day
@@ -33,7 +32,8 @@ import requests
 headers = {
     'Content-Type': 'application/json'
 }
-requestResponse = requests.get("https://api.tiingo.com/tiingo/daily/"+Ticker+"/prices?startDate="+StartDate+"&token=1bd9aa149ea0c64cc64e4abd8e22f0a5f2757d11", headers=headers)
+#MAKE SURE TO REGISTER TO GET YOUR TIINGO AUTHORIZATION TOKEN AND ADD IT BELOW AFTER &token=
+requestResponse = requests.get("https://api.tiingo.com/tiingo/daily/"+Ticker+"/prices?startDate="+StartDate+"&token=", headers=headers)
 RawOutput = requestResponse.json()
 
 MarketrequestResponse = requests.get("https://api.tiingo.com/tiingo/daily/spy/prices?startDate="+StartDate+"&token=1bd9aa149ea0c64cc64e4abd8e22f0a5f2757d11", headers=headers)
