@@ -12,8 +12,9 @@ from datetime import date
 from sklearn import datasets, linear_model
 import matplotlib.pyplot as plt
 
-"""EDIT TICKER BELOW!!"""
-Ticker='NKE'
+
+print("Select a Ticker")
+Ticker=input()
 
 Today=date.today()
 OneYear=str(date(Today.year-1, Today.month, Today.day))
@@ -32,11 +33,14 @@ import requests
 headers = {
     'Content-Type': 'application/json'
 }
+
+#PUT YOUR TOKEN FROM TIINGO.com HERE
+token = ''
 #MAKE SURE TO REGISTER TO GET YOUR TIINGO AUTHORIZATION TOKEN AND ADD IT BELOW AFTER &token=
-requestResponse = requests.get("https://api.tiingo.com/tiingo/daily/"+Ticker+"/prices?startDate="+StartDate+"&token=", headers=headers)
+requestResponse = requests.get("https://api.tiingo.com/tiingo/daily/"+Ticker+"/prices?startDate="+StartDate+"&token="+token, headers=headers)
 RawOutput = requestResponse.json()
 
-MarketrequestResponse = requests.get("https://api.tiingo.com/tiingo/daily/spy/prices?startDate="+StartDate+"&token=1bd9aa149ea0c64cc64e4abd8e22f0a5f2757d11", headers=headers)
+MarketrequestResponse = requests.get("https://api.tiingo.com/tiingo/daily/spy/prices?startDate="+StartDate+"&token="+token, headers=headers)
 MarketRawOutput = MarketrequestResponse.json()
 
 PandaOutput = pd.DataFrame(RawOutput)
@@ -52,4 +56,4 @@ BetaData = linear_model.LinearRegression()
 BetaData.fit(X, Y)
 Beta = BetaData.score(X, Y)
 BetaString=str(Beta)
-print(Ticker+'Beta: '+BetaString)
+print(Ticker+' Beta: '+BetaString)
